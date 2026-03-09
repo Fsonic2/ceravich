@@ -24,7 +24,7 @@ export default function Navbar() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
             <li className="nav-item">
-              <a className="nav-link text-white fw-semibold" href="#">Home</a>
+              <a className="nav-link text-white fw-semibold" href="/">Home</a>
             </li>
 
             <li className="nav-item">
@@ -102,13 +102,13 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto align-items-center">
 
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
+              <a className="nav-link text-white" href="./login">
                 <i className="bi bi-person fs-5"></i> Login
               </a>
             </li>
 
             <li className="nav-item position-relative">
-              <a className="nav-link text-white" href="#">
+              <a className="nav-link text-white" href="./cart">
                 <i className="bi bi-cart3 fs-5"></i>
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                   2
