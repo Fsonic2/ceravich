@@ -3,6 +3,10 @@ const flashProducts = [
   { name: "Flash Product 2", price: "₦1,800", img: "../assets/flashsale/dtgg.webp" },
   { name: "Flash Product 3", price: "₦3,000", img: "../assets/flashsale/dtgg.webp" },
   { name: "Flash Product 4", price: "₦3,000", img: "../assets/flashsale/dtgg.webp" },
+  { name: "Flash Product 5", price: "₦2,200", img: "../assets/flashsale/dtgg.webp" },
+  { name: "Flash Product 6", price: "₦3,000", img: "../assets/flashsale/dtgg.webp" },
+  { name: "Flash Product 7", price: "₦3,000", img: "../assets/flashsale/dtgg.webp" },
+  { name: "Flash Product 8", price: "₦2,200", img: "../assets/flashsale/dtgg.webp" },
 ];
 
 export default function FlashSale() {
