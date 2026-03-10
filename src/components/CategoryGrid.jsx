@@ -145,7 +145,7 @@ export default function CategoryCarousel() {
       }}
     ></div>
   </div>
-</div>
+          </div>
         
     </div>
   </div>

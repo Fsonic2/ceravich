@@ -5,9 +5,10 @@ export default function Create() {
   return (
      <>
        <Navbar />
-
-       <div className="container-fluid vh-20 d-flex px-5 py-5 mt-6 pt-6 align-items-center justify-content-center bg-light">
-         <div className="card shadow-lg p-4 p-md-5" style={{ maxWidth: '800px', width: '100%' }}>
+       
+       <div className="flex vh-50 px-5 pd--5 pt-5 mt-5 align-items-center justify-content-center bg-light">
+         <div class="row">
+         <div className="card shadow-lg p-md-5" style={{ maxWidth: '800px', width: '100%' }}>
            <h3 className="card-title text-center mb-4 fw-bold">Create</h3>
 
            <form>
@@ -42,8 +43,49 @@ export default function Create() {
              </div>
            </form>
          </div>
-       </div>
+         <div className="col-lg-4 px-0 mt-4 mt-lg-0">
+                <div className="body-card text-white shadow-lg rounded-4 overflow-hidden position-relative"
+                  style={{
+                    backgroundImage: "url('/assets/face-wash-smile.webp')", // Make sure the image is in public/assets/
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    height: "900px", // fixed height
+                    transition: "transform 0.5s",
+                  }}
+                >
+                  {/* Overlay for readability */}
+                  <div
+                    className="p-4 position-relative h-10 d-flex flex-column justify-content-between"
+                    style={{
+                      backgroundColor: "rgba(0,0,0,0.4)",
+                      zIndex: 2,
+                    }}
+                  >
+                    <div>
+                      
+                    
+                    </div>
 
+                  {/* Full-width block button at the bottom */}
+                  <h1 className="text-center fw-bold h-100"> NEW <br/>ARRIVALS</h1>
+                  <p className='text-center fw-bold'>CERAVICH SHOP.</p>
+                  <button className="btn btn-outline-light w-100 mt-3">
+                    Visit Our store
+                  </button>
+                </div>
+
+                {/* Optional hover animation layer */}
+            <div
+              className="position-absolute top-0 start-0 w-100 h-100"
+              style={{
+                zIndex: 1,
+                transition: "transform 0.5s",
+              }}
+            ></div>
+          </div>
+          </div>
+       </div>
+      </div>
        <Footer />
      </>
   );

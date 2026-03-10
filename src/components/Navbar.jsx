@@ -28,7 +28,7 @@ export default function Navbar() {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link text-white fw-semibold" href="#">Shop</a>
+              <a className="nav-link text-white fw-semibold" href="../shop/shop">Shop</a>
             </li>
 
             {/* Mega Menu */}
@@ -102,7 +102,7 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto align-items-center">
 
             <li className="nav-item">
-              <a className="nav-link text-white" href="./login">
+              <a className="nav-link text-white" href="././login">
                 <i className="bi bi-person fs-5"></i> Login
               </a>
             </li>
