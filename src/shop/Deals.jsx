@@ -10,12 +10,9 @@ export default function Deals() {
       <p className="text-center mb-5">Check out our latest offers and discounts!</p>
 
       <div className="row g-4">
-        <div className="col-md-4 text-center">
+        <div className="col-md-8">
           <i className="bi bi-envelope fs-1 text-info mb-3"></i>
           <h5>Email Us</h5>
-          <p> </p>
-        </div>
-        <div className="col-md-4 text-center">
           <i className="bi bi-telephone fs-1 text-info mb-3"></i>
           <h5>Call Us</h5>
           <p>+234 123 4567</p>
@@ -27,12 +24,7 @@ export default function Deals() {
         </div>
       </div>
 
-      <div className="text-center mt-5">
-        <h5>Follow Us for Exclusive Deals</h5>
-        <a href="#" className="mx-2 text-dark"><i className="bi bi-facebook fs-3"></i></a>
-        <a href="#" className="mx-2 text-dark"><i className="bi bi-instagram fs-3"></i></a>
-        <a href="#" className="mx-2 text-dark"><i className="bi bi-twitter fs-3"></i></a>
-      </div>
+     
     </div>
     <Footer />
     </>

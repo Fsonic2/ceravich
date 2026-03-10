@@ -26,9 +26,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-lg-4 col-md-6">
             <img src="/assets/logo.webp" alt="Ceravich Logo" width="200" className="mb-3" />
-            <p className="small text-muted">
-             
-            </p>
+             <div className="mt-5">
+              <a href="#" className="mx-2 text-dark"><i className="bi bi-facebook  text-info fs-3"></i></a>
+              <a href="#" className="mx-2 text-dark"><i className="bi bi-instagram text-info fs-3"></i></a>
+              <a href="#" className="mx-2 text-dark"><i className="bi bi-twitter text-info fs-3"></i></a>
+            </div>
           </div>
 
           {/* Shop */}
@@ -58,9 +60,9 @@ export default function Footer() {
               <button className="btn btn-info">Join</button>
             </div>
 
-            <p className="small mb-1"><i className="bi bi-geo-alt me-2"></i> Lagos, Nigeria</p>
-            <p className="small mb-1"><i className="bi bi-envelope me-2"></i> info@ceravichshop.com</p>
-            <p className="small"><i className="bi bi-telephone me-2"></i> +234 708 780 8116</p>
+            <p className="small mb-1"><i className="bi bi-geo-alt text-info me-2"></i> Lagos, Nigeria</p>
+            <p className="small mb-1"><i className="bi bi-envelope text-info me-2"></i> info@ceravichshop.com</p>
+            <p className="small"><i className="bi bi-telephone text-info me-2"></i> +234 708 780 8116</p>
 
             <div className="d-flex gap-3 mt-2">
               {socialIcons.map((social) => (

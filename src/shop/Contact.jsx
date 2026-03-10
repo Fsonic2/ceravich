@@ -10,28 +10,34 @@ export default function Contact() {
       <p className="text-center mb-5">Have questions or need assistance? We're here to help! Reach out to us through any of the following methods:</p>
 
       <div className="row g-4">
-        <div className="col-md-4 text-center">
-          <i className="bi bi-telephone fs-1 text-info mb-3"></i>
-          <h5>Phone</h5>
-          <p>+234 123 4567</p>
+        <div className="col-md-8">
+            <form >
+              <div className="mb-3">
+                <label htmlFor="name" className="form-label">Name</label>
+                <input type="text" className="form-control" id="name" placeholder="Your Name" />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">Email</label>
+                <input type="email" className="form-control" id="email" placeholder="Your Email" />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="message" className="form-label">Message</label>
+                <textarea className="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
+              </div>
+              <button type="submit" className="btn btn-info">Send Message</button>
+            </form>         
         </div>
         <div className="col-md-4 text-center">
+             <i className="bi bi-telephone fs-1 text-info mb-3"></i>
+          <h5>Phone</h5>
+          <p>+234 123 4567</p>
           <i className="bi bi-envelope fs-1 text-info mb-3"></i>
           <h5>Email</h5>
           <p>info@company.com</p>
-        </div>
-        <div className="col-md-4 text-center">
           <i className="bi bi-geo-alt fs-1 text-info mb-3"></i>
           <h5>Address</h5>
           <p>123 Beauty St, Lagos, Nigeria</p>
         </div>
-      </div>
-
-      <div className="text-center mt-5">
-        <h5>Follow Us</h5>
-        <a href="#" className="mx-2 text-dark"><i className="bi bi-facebook fs-3"></i></a>
-        <a href="#" className="mx-2 text-dark"><i className="bi bi-instagram fs-3"></i></a>
-        <a href="#" className="mx-2 text-dark"><i className="bi bi-twitter fs-3"></i></a>
       </div>
     </div>
     <Footer />
