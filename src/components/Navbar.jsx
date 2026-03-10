@@ -30,6 +30,9 @@ export default function Navbar() {
             <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="../shop/shop">Shop</a>
             </li>
+             <li className="nav-item">
+              <a className="nav-link text-white fw-semibold" href="../shop/Contact">Contact</a>
+            </li>
 
             {/* Mega Menu */}
             <li className="nav-item dropdown position-static">
@@ -81,7 +84,7 @@ export default function Navbar() {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link text-white fw-semibold" href="#">Deals</a>
+              <a className="nav-link text-white fw-semibold" href="../shop/Deals">Deals</a>
             </li>
 
           </ul>
@@ -101,7 +104,7 @@ export default function Navbar() {
           {/* Right Menu */}
           <ul className="navbar-nav ms-auto align-items-center">
 
-            <li className="nav-item">
+            <li className="nav-item p-2">
               <a className="nav-link text-white" href="././login">
                 <i className="bi bi-person fs-5"></i> Login
               </a>
