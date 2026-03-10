@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Carousel as BootstrapCarousel } from "bootstrap";
 const categories = [
-  { name: "Makeup", img: "/assets/makeup/IMG_2330.webp", description: "Enhance your beauty with high-quality makeup essentials.", price: "$30" },
-  { name: "Makeup", img: "/assets/makeup/IMG_2330.webp", description: "Enhance your beauty with high-quality makeup essentials.", price: "$30" },
-  { name: "Haircare", img: "/assets/haircare/IMG_2330.webp", description: "Healthy hair solutions for strong and shiny hair.", price: "$20" },
-  { name: "Fragrance", img: "/assets/fragrance/IMG_2330.webp", description: "Luxury perfumes with long-lasting scent.", price: "$40" },
-  { name: "Lifestyle", img: "/assets/lifestyle/IMG_2330.webp", description: "Modern lifestyle products for everyday living.", price: "$35" },
-  { name: "Fragrance", img: "/assets/fragrance/IMG_2330.webp", description: "Luxury perfumes with long-lasting scent.", price: "$40" }
+  { name: "Makeup", img: "/assets/makeup/IMG_2330.webp", description: "Enhance your beauty with high-quality makeup essentials.", price: "₦3050" },
+  { name: "Makeup", img: "/assets/makeup/IMG_2330.webp", description: "Enhance your beauty with high-quality makeup essentials.", price: "₦4000" },
+  { name: "Haircare", img: "/assets/haircare/IMG_2330.webp", description: "Healthy hair solutions for strong and shiny hair.", price: "₦2000" },
+  { name: "Fragrance", img: "/assets/fragrance/IMG_2330.webp", description: "Luxury perfumes with long-lasting scent.", price: "₦4000" },
+  { name: "Lifestyle", img: "/assets/lifestyle/IMG_2330.webp", description: "Modern lifestyle products for everyday living.", price: "₦3500" },
+  { name: "Fragrance", img: "/assets/fragrance/IMG_2330.webp", description: "Luxury perfumes with long-lasting scent.", price: "₦4000" }
 
 ];
 

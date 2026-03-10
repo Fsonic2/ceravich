@@ -17,7 +17,7 @@ export default function FlashSale() {
               <div className="card-body text-center">
                 <h6>{product.name}</h6>
                 <p className="fw-bold text-danger">{product.price}</p>
-                <button className="btn btn-warning btn-sm">Buy Now</button>
+                <button className="btn btn-info btn-sm">Buy Now</button>
               </div>
             </div>
           </div>
