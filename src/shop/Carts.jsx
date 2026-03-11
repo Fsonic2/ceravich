@@ -47,7 +47,11 @@ export default function Carts() {
   return (
     <>
     <Navbar />  
-<div className="container py-5">
+    <div className="header">
+        <div className="container py-5">
+        </div>  
+      </div>
+  <div className="container py-5">
 
       {/* Breadcrumb */}
       <div className="mb-4">
@@ -160,7 +164,7 @@ export default function Carts() {
                 </div>
 
                 <div className="col-md-3">
-                  <button className="btn btn-dark w-100">
+                  <button className="btn btn-info w-100">
                     Update Cart
                   </button>
                 </div>
@@ -193,11 +197,11 @@ export default function Carts() {
               </div>
 
               <div className="d-grid gap-3">
-                <a href="/checkout" className="btn btn-dark btn-lg">
+                <a href="checkout" className="btn btn-info btn-lg">
                   Checkout
                 </a>
 
-                <a href="/shop" className="btn btn-outline-secondary">
+                <a href="/shop" className="btn btn-outline-info">
                   Continue Shopping
                 </a>
               </div>

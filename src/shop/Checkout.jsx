@@ -10,7 +10,7 @@ export default function Checkout() {
       <Navbar />
       <div className="header">
         <div className="container py-5">
-          <h1 className="text-center text-white">Checkout</h1>
+          
         </div>  
       </div>
       <div className="flex py-5 mb-5 pt-5 mt-6 px-5">
