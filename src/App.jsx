@@ -10,8 +10,8 @@ import Create from "./shop/Create"; // optional separate page for creating new i
 import Deals from "./shop/Deals"; // optional separate page for deals and promotions
 import Dashboard from "./client/Dashboard"; // optional separate page for admin dashboard
 import Order from "./admin/Order"; // optional separate page for managing orders
-import Checkout from "./admin/Checkout"; // optional separate page for checkout process
-import Carts from "./admin/Carts"; // optional separate page for managing carts
+import Checkout from "./shop/Checkout"; // optional separate page for checkout process
+import Carts from "./shop/Carts"; // optional separate page for managing carts
 import DashboardAdmin from "./admin/Dashboard"; // optional separate page for admin dashboard
 
 export default function App() {
@@ -25,8 +25,8 @@ export default function App() {
       <Route path="/shop/deals" element={<Deals />} />
       <Route path="/client/dashboard" element={<Dashboard />} />
       <Route path="/admin/orders" element={<Order />} />
-      <Route path="/admin/checkout" element={<Checkout />} />
-      <Route path="/admin/carts" element={<Carts />} />
+      <Route path="/shop/checkout" element={<Checkout />} />
+      <Route path="/shop/carts" element={<Carts />} />
       <Route path="/admin/dashboard" element={<DashboardAdmin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

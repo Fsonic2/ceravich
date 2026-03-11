@@ -65,12 +65,10 @@ export default function CategoryCarousel() {
                                 <p className="text-muted small">{cat.description}</p>
                                 <span className="text-primary fw-bold">{cat.price}</span>
                               </div>
-                              <button
-                                className="btn btn-info mt-3"
-                                onClick={() => alert(`${cat.name} added to cart!`)}
-                              >
+                              <a hreff="./shop/carts" className="btn btn-info mt-3" onClick={() => alert(`${cat.name} added to cart!`)}>
                                 Add to Cart
-                              </button>
+                              </a>
+                               
                             </div>
                           </div>
                         </div>
