@@ -241,7 +241,7 @@ export default function Checkout() {
                 described in our Privacy policy.
               </p>
 
-              <button className="btn btn-dark btn-lg w-100 rounded-3 mt-3">
+              <button className="btn btn-info btn-lg w-100 rounded-3 mt-3">
                 Place Order
               </button>
             </div>
@@ -296,7 +296,7 @@ export default function Checkout() {
                   className="form-control mb-2"
                   placeholder="Coupon code"
                 />
-                <button className="btn btn-outline-dark w-100">
+                <button className="btn btn-outline-info w-100">
                   Apply Coupon
                 </button>
               </div>

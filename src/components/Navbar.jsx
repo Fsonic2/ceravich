@@ -111,7 +111,7 @@ export default function Navbar() {
             </li>
 
             <li className="nav-item position-relative">
-              <a className="nav-link text-white" href="./carts">
+              <a className="nav-link text-white" href="././carts">
                 <i className="bi bi-cart3 fs-5"></i>
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                   2
