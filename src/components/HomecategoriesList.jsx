@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import ShopSidebar from "./ShopSidebar";
 
 const categories = [
   { name: "Makeup", img: "/assets/makeup/IMG_2330.webp", description: "Enhance your beauty with high-quality makeup essentials.", price: "₦3050" },
@@ -50,7 +49,46 @@ export default function CategoryCarousel() {
   return (
     <div className="container-fluid px-3 px-md-5 py-5">
       <div className="row g-4">
-        <ShopSidebar />
+        <div className="col-lg-3 px-0 mt-4 mt-lg-0">
+  <div
+    className="body-card text-white shadow-lg rounded-4 overflow-hidden position-relative"
+    style={{
+      backgroundImage: "url('/assets/face-wash-smile.webp')", // Make sure the image is in public/assets/
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      height: "900px", // fixed height
+      transition: "transform 0.5s",
+    }}
+  >
+    {/* Overlay for readability */}
+    <div
+      className="p-4 position-relative h-100 d-flex flex-column justify-content-between"
+      style={{
+        backgroundColor: "rgba(0,0,0,0.4)",
+        zIndex: 2,
+      }}
+    >
+      <div>
+      </div>
+
+      {/* Full-width block button at the bottom */}
+      <h1 className="text-center fw-bold h-100"> NEW <br/>ARRIVALS</h1>
+       <p className='text-center fw-bold'>CERAVICH SHOP.</p>
+      <button className="btn btn-outline-light w-100 mt-3">
+        Visit Our store
+      </button>
+    </div>
+
+    {/* Optional hover animation layer */}
+    <div
+      className="position-absolute top-0 start-0 w-100 h-100"
+      style={{
+        zIndex: 1,
+        transition: "transform 0.5s",
+      }}
+    ></div>
+  </div>
+</div>
 
         <div className="col-lg-9">
           <h3 className="mb-4 fw-bold">Categories</h3>

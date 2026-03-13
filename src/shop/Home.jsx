@@ -1,10 +1,10 @@
 // src/pages/Home.jsx
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import CategoryGrid from "../components/CategoryGrid";
 import FlashSale from "../components/FlashSale";
 import Faq from "../components/Faq";
 import Footer from "../components/Footer";
+import HomeCategoriesList from "../components/HomecategoriesList";
 
 export default function Home() {
   const logos = [
@@ -22,7 +22,7 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
-      <CategoryGrid />
+      <HomeCategoriesList />
 
       <div className="container-fluid py-3 bg-white text-center">
         <div className="logo-marquee overflow-hidden">

@@ -1,10 +1,8 @@
-// src/pages/Home.jsx
 import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
 import CategoryGrid from "../components/CategoryGrid";
-import FlashSale from "../components/FlashSale";
-import Faq from "../components/Faq";
+import ProductAutoSlider from "../components/ProductAutoSlider";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 export default function Home() {
   const logos = [
@@ -21,7 +19,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
+      <Header />
       <CategoryGrid />
 
       <div className="container-fluid py-3 bg-white text-center">
@@ -39,11 +37,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <FlashSale />
-      <Faq />
+      <ProductAutoSlider />
       <Footer />
-
       <style jsx>{`
         .logo-marquee { overflow: hidden; width: 100%; }
         .logo-track { display: flex; animation: scroll 15s linear infinite; }
