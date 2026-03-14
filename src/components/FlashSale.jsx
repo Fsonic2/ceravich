@@ -1,17 +1,18 @@
 const flashProducts = [
-  { name: "Flash Product 1", price: "₦2,500", img: "../assets/fragrance/dtgg.webp" },
-  { name: "Flash Product 2", price: "₦1,800", img: "../assets/flashsale/dtgg.webp" },
-  { name: "Flash Product 3", price: "₦3,000", img: "../assets/flashsale/dtgg.webp" },
-  { name: "Flash Product 4", price: "₦3,000", img: "../assets/flashsale/dtgg.webp" },
-  { name: "Flash Product 5", price: "₦2,200", img: "../assets/flashsale/dtgg.webp" },
-  { name: "Flash Product 6", price: "₦3,000", img: "../assets/flashsale/dtgg.webp" },
-  { name: "Flash Product 7", price: "₦3,000", img: "../assets/flashsale/dtgg.webp" },
-  { name: "Flash Product 8", price: "₦2,200", img: "../assets/flashsale/dtgg.webp" },
+  { name: "Flash Product 1", price: "₦2,500", img: "../assets/flashsale/creame1-design-29.webp" },
+  { name: "Flash Product 2", price: "₦1,800", img: "../assets/flashsale/Frame-1715.webp" },
+  { name: "Flash Product 3", price: "₦3,000", img: "../assets/flashsale/Frame-1781.webp" },
+  { name: "Flash Product 8", price: "₦2,200", img: "../assets/flashsale/image-1-12.webp" },
+  { name: "Flash Product 5", price: "₦2,200", img: "../assets/flashsale/Frame-1787.webp" },
+  { name: "Flash Product 6", price: "₦3,000", img: "../assets/flashsale/Frame-1788.webp" },
+  { name: "Flash Product 7", price: "₦3,000", img: "../assets/flashsale/Frame-1789.webp" },
+  { name: "Flash Product 4", price: "₦3,000", img: "../assets/flashsale/Frame-1786-8.webp" },
+
 ];
 
 export default function FlashSale() {
   return (
-    <div className="container py-5 bg-light">
+    <div className="container-fluid py-5 px-5 bg-light">
       <h3 className="mb-4 text-center fw-bold">Flash Sale</h3>
       <div className="row g-4">
         {flashProducts.map((product, i) => (

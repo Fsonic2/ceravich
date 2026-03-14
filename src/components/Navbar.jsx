@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-info navbar-dark shadow-lg fixed-top">
@@ -105,13 +106,13 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto align-items-center">
 
             <li className="nav-item p-2">
-              <a className="nav-link text-white" href="././login">
+              <a className="nav-link text-white" href="../shop/login">
                 <i className="bi bi-person fs-5"></i> Login
               </a>
             </li>
 
             <li className="nav-item position-relative">
-              <a className="nav-link text-white" href="././carts">
+              <a className="nav-link text-white" href="../shop/carts">
                 <i className="bi bi-cart3 fs-5"></i>
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                   2
