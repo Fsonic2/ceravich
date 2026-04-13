@@ -13,6 +13,9 @@ import Cart from "./shop/Cart";
 
 // Admin Pages
 import DashboardAdmin from "./admin/Dashboard";
+import Message from "./admin/message/Message";
+import User from "./admin/user/User";
+import Setting from "./admin/setting/Setting";
 
 // Order Pages
 import Order from "./admin/order/Order";
@@ -36,11 +39,11 @@ import EditCustomer from "./admin/customer/EditCustomer";
 
 // Shipment Pages
 import Shipment from "./admin/shipment/Shipment";
-import Setting from "./admin/setting/Setting";
 
 export default function App() {
   return (
     <Routes>
+      {/* Shop Routes */}
       <Route path="/" element={<Home />} />
       <Route path="/shop/login" element={<Login />} />
       <Route path="/shop/contact" element={<Contact />} />
@@ -50,7 +53,11 @@ export default function App() {
       <Route path="/shop/checkout" element={<Checkout />} />
       <Route path="/shop/cart" element={<Cart />} />
 
+      {/* Admin Routes */}
       <Route path="/admin/dashboard" element={<DashboardAdmin />} />
+
+      <Route path="/admin/users" element={<User />} />
+      <Route path="/admin/messages" element={<Message />} />
 
       <Route path="/admin/orders" element={<Order />} />
       <Route path="/admin/orders/add" element={<AddOrder />} />
@@ -68,9 +75,10 @@ export default function App() {
       <Route path="/admin/customers/add" element={<AddCustomer />} />
       <Route path="/admin/customers/edit/:id" element={<EditCustomer />} />
 
-      <Route path="/admin/shipments" element={<Shipment />} />
-
+      <Route path="/admin/shipment" element={<Shipment />} />
       <Route path="/admin/settings" element={<Setting />} />
+
+      {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

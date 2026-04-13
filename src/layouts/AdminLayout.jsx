@@ -1,11 +1,23 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate();
+
+  // ✅ STATIC LOGOUT
+  const handleLogout = () => {
+    if (!window.confirm("Are you sure you want to logout?")) return;
+
+    // later replace with real auth logout
+    localStorage.removeItem("token");
+
+    navigate("/shop/login");
+  };
 
   return (
     <div className="d-flex">
+      {/* SIDEBAR */}
       <div
         className={`bg-dark text-white p-3 ${
           sidebarOpen ? "d-block" : "d-none d-md-block"
@@ -15,60 +27,138 @@ export default function AdminLayout({ children }) {
         <h4 className="text-center mb-4">💄 Beauty Admin</h4>
 
         <ul className="nav flex-column">
+
           <li className="nav-item mb-2">
             <Link className="nav-link text-white" to="/admin/dashboard">
               Dashboard
             </Link>
           </li>
+
           <li className="nav-item mb-2">
             <Link className="nav-link text-white" to="/admin/products">
               Products
             </Link>
           </li>
+
           <li className="nav-item mb-2">
             <Link className="nav-link text-white" to="/admin/categories">
               Categories
             </Link>
           </li>
+
           <li className="nav-item mb-2">
             <Link className="nav-link text-white" to="/admin/orders">
               Orders
             </Link>
           </li>
+
           <li className="nav-item mb-2">
             <Link className="nav-link text-white" to="/admin/customers">
               Customers
             </Link>
           </li>
+
           <li className="nav-item mb-2">
-            <Link className="nav-link text-white" to="/admin/shipments">
+            <Link className="nav-link text-white" to="/admin/shipment">
               Shipment
             </Link>
           </li>
-           <li className="nav-item mb-2">
+
+          <li className="nav-item mb-2">
+            <Link className="nav-link text-white" to="/admin/messages">
+              Messages
+            </Link>
+          </li>
+
+          <li className="nav-item mb-2">
+            <Link className="nav-link text-white" to="/admin/users">
+              Users
+            </Link>
+          </li>
+
+          <li className="nav-item mb-2">
             <Link className="nav-link text-white" to="/admin/settings">
               Setting
             </Link>
           </li>
+
         </ul>
       </div>
 
+      {/* MAIN CONTENT */}
       <div className="flex-grow-1">
+
+        {/* TOPBAR */}
         <nav className="navbar navbar-light bg-white shadow-sm px-3">
+
+          {/* MOBILE MENU */}
           <button
             className="btn btn-outline-dark d-md-none"
             onClick={() => setSidebarOpen(!sidebarOpen)}
           >
             ☰
           </button>
-          <div className="ms-auto">
-            <span className="fw-semibold">Admin</span>
+
+          {/* SEARCH */}
+          <form className="d-none d-md-flex ms-3" style={{ width: "300px" }}>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search..."
+            />
+          </form>
+
+          {/* RIGHT SIDE */}
+          <div className="ms-auto d-flex align-items-center gap-3">
+
+            {/* NOTIFICATION */}
+            <div className="position-relative">
+              <i className="bi bi-bell fs-5"></i>
+              <span
+                className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                style={{ fontSize: "10px" }}
+              >
+                3
+              </span>
+            </div>
+
+            {/* USER DROPDOWN */}
+            <div className="dropdown">
+              <button
+                className="btn btn-light dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                Admin
+              </button>
+
+              <ul className="dropdown-menu dropdown-menu-end">
+
+                <li>
+                  <Link className="dropdown-item" to="/admin/dashboard">
+                    Dashboard
+                  </Link>
+                </li>
+
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="dropdown-item text-danger"
+                  >
+                    Logout
+                  </button>
+                </li>
+
+              </ul>
+            </div>
+
           </div>
         </nav>
 
+        {/* PAGE CONTENT */}
         <div className="p-4 bg-light" style={{ minHeight: "100vh" }}>
           {children}
         </div>
+
       </div>
     </div>
   );
