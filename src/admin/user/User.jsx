@@ -1,32 +1,3 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import AdminLayout from "../../layouts/AdminLayout";
-
-export default function User() {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "Admin User",
-      email: "admin@shop.com",
-      role: "Admin",
-      status: "active",
-    },
-    {
-      id: 2,
-      name: "Staff User",
-      email: "staff@shop.com",
-      role: "Staff",
-      status: "active",
-    },
-    {
-      id: 3,
-      name: "Viewer User",
-      email: "viewer@shop.com",
-      role: "Viewer",
-      status: "inactive",
-    },
-  ]);
-=======
 import { BASE_URL } from "../../config/api";
 import { useEffect, useState } from "react";
 import AdminLayout from "../../layouts/AdminLayout";
@@ -59,7 +30,6 @@ export default function User() {
     fetchUsers();
   }, []);
 
->>>>>>> 0270b5f (Add frontend code)
 
   const handleDelete = (id) => {
     if (!window.confirm("Delete this user?")) return;
@@ -95,30 +65,18 @@ export default function User() {
                   {users.map((user, index) => (
                     <tr key={user.id}>
                       <td>{index + 1}</td>
-<<<<<<< HEAD
-                      <td>{user.name}</td>
-=======
                       <td>{user.username}</td>
->>>>>>> 0270b5f (Add frontend code)
                       <td>{user.email}</td>
                       <td>{user.role}</td>
                       <td>
                         <span
                           className={`badge ${
-<<<<<<< HEAD
-                            user.status === "active"
-=======
                             user.mstatus === "active"
->>>>>>> 0270b5f (Add frontend code)
                               ? "bg-success"
                               : "bg-secondary"
                           }`}
                         >
-<<<<<<< HEAD
-                          {user.status}
-=======
                           {user.mstatus}
->>>>>>> 0270b5f (Add frontend code)
                         </span>
                       </td>
                       <td className="text-end">

@@ -1,30 +1,28 @@
-
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';  // Make sure this is imported
+
 export default function Navbar() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();  // Initialize the navigate function here
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else {
+     // navigate("/");  // Use navigate after it has been initialized
     }
-    else
-    {
-       navigate("/login");
-    }
-  }, []);
+  }, [navigate]);  // Ensure navigate is in the dependency array
 
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    window.location.href = "/";
+    window.location.href = "/";  // Redirect to home page
   };
 
   return (
     <nav className="navbar navbar-expand-lg bg-info navbar-dark shadow-lg fixed-top">
       <div className="container-fluid px-4 py-2">
-
         {/* Logo */}
         <a className="navbar-brand fw-bold fs-4 text-white" href="#">
           <img src="../assets/logo.webp" alt="Ceravich Logo" width="150" height="50" className="d-inline-block align-text-top me-2" />
@@ -44,15 +42,13 @@ export default function Navbar() {
 
           {/* Left Menu */}
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-
             <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="/">Home</a>
             </li>
-
             <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="../shop/shop">Shop</a>
             </li>
-             <li className="nav-item">
+            <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="../shop/Contact">Contact</a>
             </li>
 
@@ -67,48 +63,40 @@ export default function Navbar() {
               </a>
 
               <div className="dropdown-menu w-100 mt-0 border-0 shadow-lg p-4">
-
                 <div className="container">
                   <div className="row">
-
                     <div className="col-md-3">
                       <h6 className="fw-bold">Skincare</h6>
                       <a className="dropdown-item" href="#">Cleansers</a>
                       <a className="dropdown-item" href="#">Moisturizers</a>
                       <a className="dropdown-item" href="#">Serums</a>
                     </div>
-
                     <div className="col-md-3">
                       <h6 className="fw-bold">Makeup</h6>
                       <a className="dropdown-item" href="#">Foundation</a>
                       <a className="dropdown-item" href="#">Lipstick</a>
                       <a className="dropdown-item" href="#">Mascara</a>
                     </div>
-
                     <div className="col-md-3">
                       <h6 className="fw-bold">Haircare</h6>
                       <a className="dropdown-item" href="#">Shampoo</a>
                       <a className="dropdown-item" href="#">Conditioner</a>
                       <a className="dropdown-item" href="#">Hair Oil</a>
                     </div>
-
                     <div className="col-md-3">
                       <h6 className="fw-bold">Fragrance</h6>
                       <a className="dropdown-item" href="#">Perfume</a>
                       <a className="dropdown-item" href="#">Body Spray</a>
                       <a className="dropdown-item" href="#">Gift Sets</a>
                     </div>
-
                   </div>
                 </div>
-
               </div>
             </li>
 
             <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="../shop/Deals">Deals</a>
             </li>
-
           </ul>
 
           {/* Search */}
@@ -125,29 +113,26 @@ export default function Navbar() {
 
           {/* Right Menu */}
           <ul className="navbar-nav ms-auto align-items-center">
-
             <li className="nav-item p-2">
-            {user ? (
-              <div className="d-flex align-items-center gap-2 text-white">
-                <i className="bi bi-person-circle fs-5"></i>
-
-                <span className="fw-semibold">
-                  {user.username}
-                </span>
-
-                <button
-                  onClick={logout}
-                  className="btn btn-sm btn-light ms-2"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <a className="nav-link text-white" href="/shop/login">
-                <i className="bi bi-person fs-5"></i> Login
-              </a>
-            )}
-          </li>
+              {user ? (
+                <div className="d-flex align-items-center gap-2 text-white">
+                  <i className="bi bi-person-circle fs-5"></i>
+                  <span className="fw-semibold">
+                    {user.username}
+                  </span>
+                  <button
+                    onClick={logout}
+                    className="btn btn-sm btn-light ms-2"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <a className="nav-link text-white" href="/shop/login">
+                  <i className="bi bi-person fs-5"></i> Login
+                </a>
+              )}
+            </li>
 
             <li className="nav-item position-relative">
               <a className="nav-link text-white" href="../shop/cart">
@@ -157,13 +142,10 @@ export default function Navbar() {
                 </span>
               </a>
             </li>
-
           </ul>
 
         </div>
       </div>
     </nav>
-
-    
   );
 }
