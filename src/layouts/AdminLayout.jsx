@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import { useEffect, useState } from "react";
+>>>>>>> 0270b5f (Add frontend code)
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
+<<<<<<< HEAD
 
   // ✅ STATIC LOGOUT
   const handleLogout = () => {
@@ -13,6 +18,25 @@ export default function AdminLayout({ children }) {
     localStorage.removeItem("token");
 
     navigate("/shop/login");
+=======
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    else{
+      navigate("/");
+    }
+  }, []);
+
+  // ✅ STATIC LOGOUT
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    window.location.href = "/";
+>>>>>>> 0270b5f (Add frontend code)
   };
 
   return (
@@ -128,7 +152,16 @@ export default function AdminLayout({ children }) {
                 className="btn btn-light dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
+<<<<<<< HEAD
                 Admin
+=======
+                {user ? (
+  <span>{user.username}</span>
+) : (
+  <a href="/shop/login">Login</a>
+)}
+                
+>>>>>>> 0270b5f (Add frontend code)
               </button>
 
               <ul className="dropdown-menu dropdown-menu-end">
@@ -141,9 +174,15 @@ export default function AdminLayout({ children }) {
 
                 <li>
                   <button
+<<<<<<< HEAD
                     onClick={handleLogout}
                     className="dropdown-item text-danger"
                   >
+=======
+                  onClick={logout}
+                  className="btn btn-sm btn-light ms-2"
+                >
+>>>>>>> 0270b5f (Add frontend code)
                     Logout
                   </button>
                 </li>

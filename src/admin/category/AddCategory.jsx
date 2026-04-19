@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import { BASE_URL } from "../../config/api";
+import React, { useState } from "react";
+>>>>>>> 0270b5f (Add frontend code)
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout";
 
@@ -6,12 +11,17 @@ export default function AddCategory() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
+<<<<<<< HEAD
     name: "",
+=======
+    catname: "",
+>>>>>>> 0270b5f (Add frontend code)
     slug: "",
     status: "active",
   });
 
   const [errors, setErrors] = useState({});
+<<<<<<< HEAD
 
   const generateSlug = (value) => {
     return value
@@ -58,6 +68,91 @@ export default function AddCategory() {
     console.log("Category saved:", form);
 
     navigate("/admin/categories");
+=======
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  // validate form
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!form.catname.trim()) {
+      newErrors.catname = "Category name is required";
+    }
+
+    
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // API call inside same file
+  const addCategory = async (payload) => {
+    const response = await fetch(`${BASE_URL}/api/product/addcat`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to add category");
+    }
+
+    return data;
+  };
+
+  // submit form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    if (!validateForm()) return;
+
+    const storedUser = localStorage.getItem("user");
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    
+    setLoading(true);
+
+    try {
+      const res = await addCategory({
+        catname: form.catname,
+        created_by: user.username,
+         
+      });
+
+      setMessage(res.message || "Category registered successfully");
+
+      setForm({
+        catname: "",
+       
+        
+      });
+    } catch (err) {
+      setMessage(err.message || "Server error");
+    } finally {
+      setLoading(false);
+    }
+>>>>>>> 0270b5f (Add frontend code)
   };
 
   return (
@@ -68,6 +163,15 @@ export default function AddCategory() {
           <p className="text-muted mb-0">Create a new cosmetic category</p>
         </div>
 
+<<<<<<< HEAD
+=======
+        {message && (
+          <div className="alert alert-info" role="alert">
+            {message}
+          </div>
+        )}
+
+>>>>>>> 0270b5f (Add frontend code)
         <div className="card shadow-sm border-0">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
@@ -76,6 +180,7 @@ export default function AddCategory() {
                   <label className="form-label">Category Name</label>
                   <input
                     type="text"
+<<<<<<< HEAD
                     name="name"
                     className={`form-control ${errors.name ? "is-invalid" : ""}`}
                     value={form.name}
@@ -102,6 +207,22 @@ export default function AddCategory() {
                   )}
                 </div>
 
+=======
+                    name="catname"
+                    className={`form-control ${
+                      errors.catname ? "is-invalid" : ""
+                    }`}
+                    value={form.catname}
+                    onChange={handleChange}
+                    placeholder="Enter category name"
+                  />
+                  {errors.catname && (
+                    <div className="invalid-feedback">{errors.catname}</div>
+                  )}
+                </div>
+
+                
+>>>>>>> 0270b5f (Add frontend code)
                 <div className="col-md-6">
                   <label className="form-label">Status</label>
                   <select
@@ -116,9 +237,20 @@ export default function AddCategory() {
                 </div>
 
                 <div className="col-12 mt-3">
+<<<<<<< HEAD
                   <button type="submit" className="btn btn-dark me-2">
                     Save Category
                   </button>
+=======
+                  <button
+                    type="submit"
+                    className="btn btn-dark me-2"
+                    disabled={loading}
+                  >
+                    {loading ? "Saving..." : "Save Category"}
+                  </button>
+
+>>>>>>> 0270b5f (Add frontend code)
                   <button
                     type="button"
                     className="btn btn-outline-secondary"

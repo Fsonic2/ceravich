@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import AdminLayout from "../../layouts/AdminLayout";
 
@@ -25,6 +26,40 @@ export default function User() {
       status: "inactive",
     },
   ]);
+=======
+import { BASE_URL } from "../../config/api";
+import { useEffect, useState } from "react";
+import AdminLayout from "../../layouts/AdminLayout";
+
+export default function User() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+       const res = await fetch(`${BASE_URL}/api/auth/users/admins`, {
+          credentials: "include",
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          setUsers(data.users);
+        } else {
+          console.error(data.message);
+        }
+      } catch (err) {
+        console.error("Error fetching users:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+>>>>>>> 0270b5f (Add frontend code)
 
   const handleDelete = (id) => {
     if (!window.confirm("Delete this user?")) return;
@@ -60,18 +95,30 @@ export default function User() {
                   {users.map((user, index) => (
                     <tr key={user.id}>
                       <td>{index + 1}</td>
+<<<<<<< HEAD
                       <td>{user.name}</td>
+=======
+                      <td>{user.username}</td>
+>>>>>>> 0270b5f (Add frontend code)
                       <td>{user.email}</td>
                       <td>{user.role}</td>
                       <td>
                         <span
                           className={`badge ${
+<<<<<<< HEAD
                             user.status === "active"
+=======
+                            user.mstatus === "active"
+>>>>>>> 0270b5f (Add frontend code)
                               ? "bg-success"
                               : "bg-secondary"
                           }`}
                         >
+<<<<<<< HEAD
                           {user.status}
+=======
+                          {user.mstatus}
+>>>>>>> 0270b5f (Add frontend code)
                         </span>
                       </td>
                       <td className="text-end">

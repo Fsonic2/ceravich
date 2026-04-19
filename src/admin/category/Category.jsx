@@ -1,8 +1,13 @@
+<<<<<<< HEAD
+=======
+import { BASE_URL } from "../../config/api";
+>>>>>>> 0270b5f (Add frontend code)
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout";
 
 export default function Category() {
+<<<<<<< HEAD
   const [categories, setCategories] = useState([
     { id: 1, name: "Skincare", slug: "skincare", status: "active" },
     { id: 2, name: "Makeup", slug: "makeup", status: "active" },
@@ -13,6 +18,45 @@ export default function Category() {
 
   useEffect(() => {
     // Replace with API call later
+=======
+  const [categories, setCategories] = useState([]);
+  const [search, setSearch] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const fetchCategories = async () => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        `${BASE_URL}/api/product/categorylist`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch categories");
+      }
+
+      setCategories(data.categoryall || []);
+    } catch (error) {
+      console.error("Fetch categories error:", error);
+      setMessage(error.message || "Error fetching categories");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+>>>>>>> 0270b5f (Add frontend code)
   }, []);
 
   const handleDelete = (id) => {
@@ -23,7 +67,13 @@ export default function Category() {
   };
 
   const filteredCategories = categories.filter((item) =>
+<<<<<<< HEAD
     item.name.toLowerCase().includes(search.toLowerCase())
+=======
+    (item.catname || item.name || "")
+      .toLowerCase()
+      .includes(search.toLowerCase())
+>>>>>>> 0270b5f (Add frontend code)
   );
 
   return (
@@ -40,6 +90,11 @@ export default function Category() {
           </Link>
         </div>
 
+<<<<<<< HEAD
+=======
+        {message && <div className="alert alert-danger">{message}</div>}
+
+>>>>>>> 0270b5f (Add frontend code)
         <div className="card shadow-sm border-0">
           <div className="card-body">
             <div className="row mb-3">
@@ -66,12 +121,27 @@ export default function Category() {
                   </tr>
                 </thead>
                 <tbody>
+<<<<<<< HEAD
                   {filteredCategories.length > 0 ? (
                     filteredCategories.map((category, index) => (
                       <tr key={category.id}>
                         <td>{index + 1}</td>
                         <td>{category.name}</td>
                         <td>{category.slug}</td>
+=======
+                  {loading ? (
+                    <tr>
+                      <td colSpan="5" className="text-center py-4">
+                        Loading...
+                      </td>
+                    </tr>
+                  ) : filteredCategories.length > 0 ? (
+                    filteredCategories.map((category, index) => (
+                      <tr key={category.id || category.cat_id}>
+                        <td>{index + 1}</td>
+                        <td>{category.catname || category.name}</td>
+                        <td>{category.slug || "-"}</td>
+>>>>>>> 0270b5f (Add frontend code)
                         <td>
                           <span
                             className={`badge ${
@@ -80,19 +150,33 @@ export default function Category() {
                                 : "bg-secondary"
                             }`}
                           >
+<<<<<<< HEAD
                             {category.status}
+=======
+                            {category.status || "inactive"}
+>>>>>>> 0270b5f (Add frontend code)
                           </span>
                         </td>
                         <td className="text-end">
                           <Link
+<<<<<<< HEAD
                             to={`/admin/categories/edit/${category.id}`}
+=======
+                            to={`/admin/categories/edit/${category.id || category.cat_id}`}
+>>>>>>> 0270b5f (Add frontend code)
                             className="btn btn-sm btn-outline-primary me-2"
                           >
                             Edit
                           </Link>
                           <button
                             className="btn btn-sm btn-outline-danger"
+<<<<<<< HEAD
                             onClick={() => handleDelete(category.id)}
+=======
+                            onClick={() =>
+                              handleDelete(category.id || category.cat_id)
+                            }
+>>>>>>> 0270b5f (Add frontend code)
                           >
                             Delete
                           </button>

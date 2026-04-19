@@ -1,5 +1,31 @@
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 export default function Navbar() {
+=======
+
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+export default function Navbar() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    else
+    {
+       navigate("/login");
+    }
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    window.location.href = "/";
+  };
+
+>>>>>>> 0270b5f (Add frontend code)
   return (
     <nav className="navbar navbar-expand-lg bg-info navbar-dark shadow-lg fixed-top">
       <div className="container-fluid px-4 py-2">
@@ -106,10 +132,34 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto align-items-center">
 
             <li className="nav-item p-2">
+<<<<<<< HEAD
               <a className="nav-link text-white" href="../shop/login">
                 <i className="bi bi-person fs-5"></i> Login
               </a>
             </li>
+=======
+            {user ? (
+              <div className="d-flex align-items-center gap-2 text-white">
+                <i className="bi bi-person-circle fs-5"></i>
+
+                <span className="fw-semibold">
+                  {user.username}
+                </span>
+
+                <button
+                  onClick={logout}
+                  className="btn btn-sm btn-light ms-2"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <a className="nav-link text-white" href="/shop/login">
+                <i className="bi bi-person fs-5"></i> Login
+              </a>
+            )}
+          </li>
+>>>>>>> 0270b5f (Add frontend code)
 
             <li className="nav-item position-relative">
               <a className="nav-link text-white" href="../shop/cart">
