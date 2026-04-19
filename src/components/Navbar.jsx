@@ -127,12 +127,6 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto align-items-center">
 
             <li className="nav-item p-2">
-<<<<<<< HEAD
-              <a className="nav-link text-white" href="../shop/login">
-                <i className="bi bi-person fs-5"></i> Login
-              </a>
-            </li>
-=======
             {user ? (
               <div className="d-flex align-items-center gap-2 text-white">
                 <i className="bi bi-person-circle fs-5"></i>
@@ -154,7 +148,6 @@ export default function Navbar() {
               </a>
             )}
           </li>
->>>>>>> 0270b5f (Add frontend code)
 
             <li className="nav-item position-relative">
               <a className="nav-link text-white" href="../shop/cart">
