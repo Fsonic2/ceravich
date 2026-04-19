@@ -39,6 +39,48 @@ export default function Category() {
     }
   };
 
+  // delete  categories API call
+
+  const deleteCategory = async (id) => {
+  try {
+    setLoading(true);
+
+    const response = await fetch(
+      `${BASE_URL}/api/product/delcat/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error("Invalid server response");
+    }
+
+    if (!response.ok) {
+      throw new Error(data?.message || "Failed to delete category");
+    }
+
+    // Option 1: refetch categories
+    fetchCategories();
+
+    // Option 2 (faster UI): update state locally
+    // setCategories(prev => prev.filter(cat => cat._id !== id));
+
+  } catch (error) {
+    console.error("Delete category error:", error);
+    setMessage(error?.message || "Error deleting category");
+  } finally {
+    setLoading(false);
+  }
+};
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -129,13 +171,22 @@ export default function Category() {
                             Edit
                           </Link>
                           <button
-                            className="btn btn-sm btn-outline-danger"
-                            onClick={() =>
-                              handleDelete(category.id || category.cat_id)
-                            }
-                          >
-                            Delete
-                          </button>
+  className="btn btn-sm btn-outline-danger"
+  onClick={() => {
+    const id = category.id || category.cat_id;
+
+    if (!id) {
+      console.error("Missing category ID");
+      return;
+    }
+
+    if (window.confirm("Are you sure you want to delete this category?")) {
+      deleteCategory(id);
+    }
+  }}
+>
+  Delete
+</button>
                         </td>
                       </tr>
                     ))

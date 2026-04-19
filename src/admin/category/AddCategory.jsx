@@ -81,6 +81,7 @@ export default function AddCategory() {
       const res = await addCategory({
         catname: form.catname,
         created_by: user.username,
+        status: form.status,
          
       });
 

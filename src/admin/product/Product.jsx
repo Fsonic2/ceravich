@@ -1,44 +1,63 @@
-import { useMemo, useState } from "react";
+import { BASE_URL } from "../../config/api";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout";
 
 export default function Product() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Vitamin C Face Serum",
-      category: "Skincare",
-      price: 12000,
-      stock: 20,
-      status: "active",
-    },
-    {
-      id: 2,
-      name: "Matte Lipstick",
-      category: "Makeup",
-      price: 8000,
-      stock: 35,
-      status: "active",
-    },
-    {
-      id: 3,
-      name: "Luxury Perfume",
-      category: "Fragrance",
-      price: 25000,
-      stock: 8,
-      status: "inactive",
-    },
-  ]);
-
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      setMessage("");
+
+      const response = await fetch(`${BASE_URL}/api/product/listproducts`, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      const rawText = await response.text();
+      console.log("Raw product response:", rawText);
+
+      let data = {};
+      try {
+        data = rawText ? JSON.parse(rawText) : {};
+      } catch {
+        throw new Error(`Server did not return JSON. Response was: ${rawText}`);
+      }
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch products");
+      }
+
+      setProducts(data.productall || []);
+    } catch (error) {
+      console.error("Fetch products error:", error);
+      setMessage(error.message || "Error fetching products");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const filteredProducts = useMemo(() => {
+    const keyword = search.toLowerCase().trim();
+
     return products.filter((item) => {
-      const keyword = search.toLowerCase();
+      const productName = (item.productname || "").toLowerCase();
+      const categoryName = (item.category || "").toLowerCase();
+      const status = (item.status || "").toLowerCase();
+
       return (
-        item.name.toLowerCase().includes(keyword) ||
-        item.category.toLowerCase().includes(keyword) ||
-        item.status.toLowerCase().includes(keyword)
+        productName.includes(keyword) ||
+        categoryName.includes(keyword) ||
+        status.includes(keyword)
       );
     });
   }, [products, search]);
@@ -60,6 +79,8 @@ export default function Product() {
             Add Product
           </Link>
         </div>
+
+        {message && <div className="alert alert-danger">{message}</div>}
 
         <div className="card shadow-sm border-0">
           <div className="card-body">
@@ -89,14 +110,21 @@ export default function Product() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredProducts.length > 0 ? (
+                  {loading ? (
+                    <tr>
+                      <td colSpan="7" className="text-center py-4 text-muted">
+                        Loading products...
+                      </td>
+                    </tr>
+                  ) : filteredProducts.length > 0 ? (
                     filteredProducts.map((product, index) => (
-                      <tr key={product.id}>
+                      <tr key={product.id ?? index}>
                         <td>{index + 1}</td>
-                        <td>{product.name}</td>
+                        <td>{product.productname}</td>
                         <td>{product.category}</td>
-                        <td>₦{Number(product.price).toLocaleString()}</td>
+                        <td>₦{Number(product.price || 0).toLocaleString()}</td>
                         <td>{product.stock}</td>
+                        
                         <td>
                           <span
                             className={`badge ${
@@ -108,6 +136,17 @@ export default function Product() {
                             {product.status}
                           </span>
                         </td>
+                        <td>
+  {product.image ? (
+    <img
+      src={`${BASE_URL}/uploads/${product.image}`}
+      alt={product.productname}
+      style={{ width: "50px", height: "50px", objectFit: "cover" }}
+    />
+  ) : (
+    "No image"
+  )}
+</td>
                         <td className="text-end">
                           <Link
                             to={`/admin/products/edit/${product.id}`}
