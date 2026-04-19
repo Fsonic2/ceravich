@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-export default function Navbar() {
-=======
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -25,7 +21,6 @@ export default function Navbar() {
     window.location.href = "/";
   };
 
->>>>>>> 0270b5f (Add frontend code)
   return (
     <nav className="navbar navbar-expand-lg bg-info navbar-dark shadow-lg fixed-top">
       <div className="container-fluid px-4 py-2">
