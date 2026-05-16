@@ -1,41 +1,57 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout";
-// import api from "../../api/api"; // use this when connecting Laravel API
+import { BASE_URL } from "../../config/api";
 
 export default function EditCustomer() {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [form, setForm] = useState({
-    name: "",
+    username: "",
     email: "",
     phone: "",
     status: "active",
-    address: "",
+    contactaddr: "",
+    shippingaddr: "",
   });
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
+  // ✅ Fetch customer by ID from API
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        // Replace this fake data with API call later
-        // const res = await api.get(`/customers/${id}`);
-        // const data = res.data;
+        const response = await fetch(
+          `${BASE_URL}/api/auth/users/customers/${id}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
-        const data = {
-          name: "Jane Doe",
-          email: "jane@example.com",
-          phone: "08012345678",
-          status: "active",
-          address: "12 Allen Avenue, Ikeja, Lagos",
-        };
+        const data = await response.json();
+        console.log("Customer data:", data);
 
-        setForm(data);
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to fetch customer");
+        }
+
+        if (data.success) {
+          setForm({
+            username: data.user.username || "",
+            email: data.user.email || "",
+            phone: data.user.phone || "",
+            status: data.user.status || "active",
+            contactaddr: data.user.contactaddr || "",
+            shippingaddr: data.user.shippingaddr || "",
+          });
+        }
       } catch (error) {
         console.error("Fetch customer error:", error);
+        setMessage(error.message || "Error fetching customer");
       } finally {
         setLoading(false);
       }
@@ -46,38 +62,47 @@ export default function EditCustomer() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const validate = () => {
     const newErrors = {};
-
-    if (!form.name.trim()) newErrors.name = "Customer name is required";
+    if (!form.username.trim()) newErrors.username = "Customer name is required";
     if (!form.email.trim()) newErrors.email = "Email is required";
     if (!form.phone.trim()) newErrors.phone = "Phone is required";
-
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
 
     const validationErrors = validate();
     setErrors(validationErrors);
-
     if (Object.keys(validationErrors).length > 0) return;
 
     try {
-      // await api.put(`/customers/${id}`, form);
-      console.log("Updated customer:", { id, ...form });
-      alert("Customer updated successfully!");
-      navigate("/admin/customers");
+      const response = await fetch(
+        `${BASE_URL}/api/auth/users/customers/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(form),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to update customer");
+      }
+
+      setMessage("Customer updated successfully!");
+      setTimeout(() => navigate("/admin/customers"), 1500);
     } catch (error) {
       console.error("Update customer error:", error);
-      alert("Failed to update customer");
+      setMessage(error.message || "Failed to update customer");
     }
   };
 
@@ -97,24 +122,37 @@ export default function EditCustomer() {
           <p className="text-muted mb-0">Update customer information</p>
         </div>
 
+        {message && (
+          <div
+            className={`alert ${
+              message.includes("successfully") ? "alert-success" : "alert-danger"
+            }`}
+          >
+            {message}
+          </div>
+        )}
+
         <div className="card shadow-sm border-0">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
               <div className="row g-3">
+
+                {/* Name */}
                 <div className="col-md-6">
                   <label className="form-label">Full Name</label>
                   <input
                     type="text"
-                    name="name"
-                    className={`form-control ${errors.name ? "is-invalid" : ""}`}
-                    value={form.name}
+                    name="username"
+                    className={`form-control ${errors.username ? "is-invalid" : ""}`}
+                    value={form.username}
                     onChange={handleChange}
                   />
-                  {errors.name && (
-                    <div className="invalid-feedback">{errors.name}</div>
+                  {errors.username && (
+                    <div className="invalid-feedback">{errors.username}</div>
                   )}
                 </div>
 
+                {/* Email */}
                 <div className="col-md-6">
                   <label className="form-label">Email</label>
                   <input
@@ -129,6 +167,7 @@ export default function EditCustomer() {
                   )}
                 </div>
 
+                {/* Phone */}
                 <div className="col-md-6">
                   <label className="form-label">Phone</label>
                   <input
@@ -143,6 +182,7 @@ export default function EditCustomer() {
                   )}
                 </div>
 
+                {/* Status */}
                 <div className="col-md-6">
                   <label className="form-label">Status</label>
                   <select
@@ -156,17 +196,33 @@ export default function EditCustomer() {
                   </select>
                 </div>
 
+                {/* ✅ Contact Address — DB column: contactaddr */}
                 <div className="col-12">
-                  <label className="form-label">Address</label>
+                  <label className="form-label">Contact Address</label>
                   <textarea
-                    name="address"
+                    name="contactaddr"
                     className="form-control"
-                    rows="4"
-                    value={form.address}
+                    rows="3"
+                    placeholder="Enter contact address"
+                    value={form.contactaddr}
                     onChange={handleChange}
                   ></textarea>
                 </div>
 
+                {/* ✅ Shipping Address — DB column: shippingaddr */}
+                <div className="col-12">
+                  <label className="form-label">Shipping Address</label>
+                  <textarea
+                    name="shippingaddr"
+                    className="form-control"
+                    rows="3"
+                    placeholder="Enter shipping address"
+                    value={form.shippingaddr}
+                    onChange={handleChange}
+                  ></textarea>
+                </div>
+
+                {/* Buttons */}
                 <div className="col-12">
                   <button type="submit" className="btn btn-dark me-2">
                     Update Customer

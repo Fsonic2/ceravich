@@ -48,7 +48,12 @@ export default function Login() {
       }
 
     setMessage(data.message || "Login successful");
-    localStorage.setItem("user", JSON.stringify(data));
+    localStorage.setItem("user", JSON.stringify({
+  id: data.id,
+  username: data.username,
+  email: data.email,
+  role: data.role,
+}));
     //  ROLE-BASED REDIRECT
     if (data.role === "admin") {
       window.location.href = "/admin/Dashboard";

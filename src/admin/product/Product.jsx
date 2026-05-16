@@ -48,12 +48,10 @@ export default function Product() {
 
   const filteredProducts = useMemo(() => {
     const keyword = search.toLowerCase().trim();
-
     return products.filter((item) => {
       const productName = (item.productname || "").toLowerCase();
       const categoryName = (item.category || "").toLowerCase();
       const status = (item.status || "").toLowerCase();
-
       return (
         productName.includes(keyword) ||
         categoryName.includes(keyword) ||
@@ -62,9 +60,38 @@ export default function Product() {
     });
   }, [products, search]);
 
-  const handleDelete = (id) => {
+  // ✅ Fixed handleDelete — now calls the API
+  const handleDelete = async (id) => {
     if (!window.confirm("Delete this product?")) return;
-    setProducts((prev) => prev.filter((item) => item.id !== id));
+
+    try {
+      setLoading(true);
+      const response = await fetch(`${BASE_URL}/api/product/delprod/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error("Invalid server response");
+      }
+
+      if (!response.ok) {
+        throw new Error(data?.message || "Failed to delete product");
+      }
+
+      setMessage("Product deleted successfully");
+      // ✅ Remove from state after successful API delete
+      setProducts((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Delete product error:", error);
+      setMessage(error?.message || "Error deleting product");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -80,7 +107,16 @@ export default function Product() {
           </Link>
         </div>
 
-        {message && <div className="alert alert-danger">{message}</div>}
+        {/* ✅ Show success or error message */}
+        {message && (
+          <div
+            className={`alert ${
+              message.includes("successfully") ? "alert-success" : "alert-danger"
+            }`}
+          >
+            {message}
+          </div>
+        )}
 
         <div className="card shadow-sm border-0">
           <div className="card-body">
@@ -101,6 +137,7 @@ export default function Product() {
                 <thead className="table-light">
                   <tr>
                     <th>#</th>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Price</th>
@@ -112,7 +149,7 @@ export default function Product() {
                 <tbody>
                   {loading ? (
                     <tr>
-                      <td colSpan="7" className="text-center py-4 text-muted">
+                      <td colSpan="8" className="text-center py-4 text-muted">
                         Loading products...
                       </td>
                     </tr>
@@ -120,11 +157,26 @@ export default function Product() {
                     filteredProducts.map((product, index) => (
                       <tr key={product.id ?? index}>
                         <td>{index + 1}</td>
+                        <td>
+                          {product.image ? (
+                            <img
+                              src={`${BASE_URL}/uploads/${product.image}`}
+                              alt={product.productname}
+                              style={{
+                                width: "50px",
+                                height: "50px",
+                                objectFit: "cover",
+                                borderRadius: "6px",
+                              }}
+                            />
+                          ) : (
+                            "No image"
+                          )}
+                        </td>
                         <td>{product.productname}</td>
                         <td>{product.category}</td>
                         <td>₦{Number(product.price || 0).toLocaleString()}</td>
                         <td>{product.stock}</td>
-                        
                         <td>
                           <span
                             className={`badge ${
@@ -136,17 +188,6 @@ export default function Product() {
                             {product.status}
                           </span>
                         </td>
-                        <td>
-  {product.image ? (
-    <img
-      src={`${BASE_URL}/uploads/${product.image}`}
-      alt={product.productname}
-      style={{ width: "50px", height: "50px", objectFit: "cover" }}
-    />
-  ) : (
-    "No image"
-  )}
-</td>
                         <td className="text-end">
                           <Link
                             to={`/admin/products/edit/${product.id}`}
@@ -165,7 +206,7 @@ export default function Product() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="7" className="text-center py-4 text-muted">
+                      <td colSpan="8" className="text-center py-4 text-muted">
                         No products found.
                       </td>
                     </tr>

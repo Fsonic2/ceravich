@@ -10,6 +10,7 @@ import Create from "./shop/Create";
 import Deals from "./shop/Deals";
 import Checkout from "./shop/Checkout";
 import Cart from "./shop/Cart";
+import MyAccount from "./shop/MyAccount";
 
 // Admin Pages
 import DashboardAdmin from "./admin/Dashboard";
@@ -52,7 +53,7 @@ export default function App() {
       <Route path="/shop/deals" element={<Deals />} />
       <Route path="/shop/checkout" element={<Checkout />} />
       <Route path="/shop/cart" element={<Cart />} />
-
+      <Route path="/shop/my-account" element={<MyAccount />} />
       {/* Admin Routes */}
       <Route path="/admin/dashboard" element={<DashboardAdmin />} />
 
