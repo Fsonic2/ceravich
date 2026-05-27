@@ -1,8 +1,24 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../config/api";
+
+const SUBCATEGORIES = {
+  Skincare: ["Cleansers", "Moisturizers", "Serums"],
+  Makeup: ["Foundation", "Lipstick", "Mascara"],
+  Haircare: ["Shampoo", "Conditioner", "Hair Oil"],
+  Fragrance: ["Perfume", "Body Spray", "Gift Sets"],
+};
+
+// Safely build image URL — handles null, undefined, relative, absolute
+const getImageUrl = (image) => {
+  if (!image) return "https://placehold.co/30x30?text=N/A";
+  if (image.startsWith("http")) return image;
+  return `${BASE_URL}/uploads/${image.replace(/^\/?(uploads\/)?/, "")}`;
+};
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,11 +34,24 @@ export default function Navbar() {
     window.location.href = "/";
   };
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/api/product/top-categories`);
+        const data = await res.json();
+        setCategories(data.data || []);
+      } catch (err) {
+        console.error("Failed to fetch categories:", err);
+        setCategories([]);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   return (
     <nav className="navbar navbar-expand-lg bg-info navbar-dark shadow-lg fixed-top">
       <div className="container-fluid px-4 py-2">
 
-        {/* Logo */}
         <a className="navbar-brand fw-bold fs-4 text-white" href="#">
           <img
             src="../assets/logo.webp"
@@ -33,7 +62,6 @@ export default function Navbar() {
           />
         </a>
 
-        {/* Mobile Toggle */}
         <button
           className="navbar-toggler"
           type="button"
@@ -45,19 +73,20 @@ export default function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarContent">
 
-          {/* Left Menu */}
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
             <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="/">Home</a>
             </li>
+
             <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="../shop/shop">Shop</a>
             </li>
+
             <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="../shop/Contact">Contact</a>
             </li>
 
-            {/* Mega Menu */}
             <li className="nav-item dropdown position-static">
               <a
                 className="nav-link dropdown-toggle text-white fw-semibold"
@@ -69,30 +98,47 @@ export default function Navbar() {
               <div className="dropdown-menu w-100 mt-0 border-0 shadow-lg p-4">
                 <div className="container">
                   <div className="row">
-                    <div className="col-md-3">
-                      <h6 className="fw-bold">Skincare</h6>
-                      <a className="dropdown-item" href="#">Cleansers</a>
-                      <a className="dropdown-item" href="#">Moisturizers</a>
-                      <a className="dropdown-item" href="#">Serums</a>
-                    </div>
-                    <div className="col-md-3">
-                      <h6 className="fw-bold">Makeup</h6>
-                      <a className="dropdown-item" href="#">Foundation</a>
-                      <a className="dropdown-item" href="#">Lipstick</a>
-                      <a className="dropdown-item" href="#">Mascara</a>
-                    </div>
-                    <div className="col-md-3">
-                      <h6 className="fw-bold">Haircare</h6>
-                      <a className="dropdown-item" href="#">Shampoo</a>
-                      <a className="dropdown-item" href="#">Conditioner</a>
-                      <a className="dropdown-item" href="#">Hair Oil</a>
-                    </div>
-                    <div className="col-md-3">
-                      <h6 className="fw-bold">Fragrance</h6>
-                      <a className="dropdown-item" href="#">Perfume</a>
-                      <a className="dropdown-item" href="#">Body Spray</a>
-                      <a className="dropdown-item" href="#">Gift Sets</a>
-                    </div>
+                    {categories.map((category) => (
+                      <div key={category.id} className="col-md-3">
+
+                        {/* Dynamic category header */}
+                        <h6 className="fw-bold">{category.catname}</h6>
+
+                        {/* Hardcoded subcategories matched by catname */}
+                        {(SUBCATEGORIES[category.catname] || []).map((sub) => (
+                          <a key={sub} className="dropdown-item" href="#">
+                            {sub}
+                          </a>
+                        ))}
+
+                        {/* Top 2 products per category */}
+                        {Array.isArray(category.products) && category.products.length > 0 && (
+                          <div className="mt-2">
+                            <small className="text-muted fw-semibold">Top Products</small>
+                            {category.products.map((product) => (
+                              <a
+                                key={product.id}
+                                className="dropdown-item d-flex align-items-center gap-2 py-1"
+                                href={`/shop/product/${product.id}`}
+                              >
+                                <img
+                                  src={getImageUrl(product.image)}
+                                  alt={product.productname || "Product"}
+                                  width="30"
+                                  height="30"
+                                  style={{ objectFit: "cover", borderRadius: "4px" }}
+                                  onError={(e) => {
+                                    e.target.src = "https://placehold.co/30x30?text=N/A";
+                                  }}
+                                />
+                                <span className="small">{product.productname}</span>
+                              </a>
+                            ))}
+                          </div>
+                        )}
+
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -101,9 +147,9 @@ export default function Navbar() {
             <li className="nav-item">
               <a className="nav-link text-white fw-semibold" href="../shop/Deals">Deals</a>
             </li>
+
           </ul>
 
-          {/* Search */}
           <form className="d-flex mx-lg-4 w-50">
             <input
               className="form-control rounded-start"
@@ -115,10 +161,8 @@ export default function Navbar() {
             </button>
           </form>
 
-          {/* Right Menu */}
           <ul className="navbar-nav ms-auto align-items-center">
 
-            {/* ✅ User Dropdown */}
             <li className="nav-item dropdown p-2">
               {user ? (
                 <a
@@ -142,11 +186,9 @@ export default function Navbar() {
                 </a>
               )}
 
-              {/* Dropdown Menu */}
               <ul className="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
                 {user ? (
                   <>
-                    {/* Logged in header */}
                     <li className="px-3 py-2 border-bottom">
                       <small className="text-muted">Signed in as</small>
                       <p className="fw-bold mb-0">{user.username}</p>
@@ -163,7 +205,9 @@ export default function Navbar() {
                         My Orders
                       </a>
                     </li>
-                    <li><hr className="dropdown-divider" /></li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
                     <li>
                       <button
                         onClick={logout}
@@ -193,7 +237,6 @@ export default function Navbar() {
               </ul>
             </li>
 
-            {/* Cart */}
             <li className="nav-item position-relative">
               <a className="nav-link text-white" href="../shop/cart">
                 <i className="bi bi-cart3 fs-5"></i>
